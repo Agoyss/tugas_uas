@@ -14,4 +14,6 @@ Barang Kamarku adalah aplikasi untuk mencatat barang apa saja yang ada dikamarmu
 
 Pada file client terdapat file project flutter aplikasi Barang Kamarku.
 
+Pada setiap project dart yang memiliki API, ganti request http localhost menjadi IP PC server mysql apabila menggunakan emulator untuk menjalankan aplikasi.
+
 Pada file server terdapat file php, pindahkan file tersebut ke XAMPP htdocs folder. 
