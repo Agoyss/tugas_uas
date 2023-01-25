@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tugas_uas/presentation/pages/home.dart';
 import 'package:tugas_uas/presentation/main_page.dart';
 
 void main() => runApp(App());

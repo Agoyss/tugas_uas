@@ -74,7 +74,7 @@ class HomeState extends State<Home> {
                           EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                       child: Container(
                         decoration: BoxDecoration(
-                            color: Colors.blueGrey[200],
+                            color: _lightColors[200],
                             borderRadius: BorderRadius.circular(12)),
                         child: ListTile(
                           title: Text('${_get[index]['NamaBarang']}'),
