@@ -50,57 +50,77 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('List Barang'),
-        ),
-        body: FutureBuilder(
-          future: _getData(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return ListView.builder(
-                itemCount: _get.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Edit(
-                                    id: _get[index]['id'],
-                                  )));
-                    },
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: _lightColors[200],
-                            borderRadius: BorderRadius.circular(12)),
-                        child: ListTile(
-                          title: Text('${_get[index]['NamaBarang']}'),
-                          subtitle: Text(
+      appBar: AppBar(
+        title: Text('List Barang'),
+      ),
+      body: _get.length != 0
+          //we use masonry grid to make masonry card style
+          ? MasonryGridView.count(
+              crossAxisCount: 2,
+              itemCount: _get.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        //routing into edit page
+                        //we pass the id note
+                        MaterialPageRoute(
+                            builder: (context) => Edit(
+                                  id: _get[index]['id'],
+                                )));
+                  },
+                  child: Card(
+                    //make random color to eveery card
+                    color: _lightColors[index % _lightColors.length],
+                    child: Container(
+                      //make 2 different height
+                      constraints:
+                          BoxConstraints(minHeight: (index % 2 + 1) * 85),
+                      padding: EdgeInsets.all(15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
                             '${_get[index]['date']}',
+                            style: TextStyle(color: Colors.black),
                           ),
-                        ),
+                          SizedBox(height: 10),
+                          Text(
+                            '${_get[index]['NamaBarang']}',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  );
-                },
-              );
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.red.shade900,
-          child: Icon(Icons.add),
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Add()));
-          },
-        ));
+                  ),
+                );
+              },
+            )
+          : Center(
+              child: Text(
+                "No Data Available",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+              context,
+              //routing into add page
+              MaterialPageRoute(builder: (context) => Add()));
+        },
+      ),
+    );
   }
 }
